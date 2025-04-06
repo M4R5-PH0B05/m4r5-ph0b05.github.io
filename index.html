@@ -73,7 +73,7 @@
         /* Typography */
         h1, h2, h3, h4, h5 {
             font-weight: 700;
-            line-height: 1.2;
+            line-height: 1.3; /* Increased from 1.2 for better text rendering */
             margin-bottom: 1rem;
         }
 
@@ -83,6 +83,7 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            padding-bottom: 0.1em; /* Added padding to prevent text clipping */
         }
 
         h2 {
@@ -98,6 +99,7 @@
         p {
             margin-bottom: 1.5rem;
             color: var(--text);
+            line-height: 1.7; /* Increased line height for better readability and to prevent clipping */
         }
 
         a {
@@ -127,6 +129,7 @@
             text-align: center;
             margin-bottom: 3rem;
             position: relative;
+            padding-bottom: 0.2em; /* Added padding to prevent text clipping */
         }
 
         .section-title::after {
@@ -221,6 +224,7 @@
             color: var(--text);
             font-weight: 500;
             position: relative;
+            padding: 0.5rem 0; /* Added padding for better clickability and to prevent text clipping */
         }
 
         .nav-links a::after {
@@ -284,12 +288,14 @@
         .hero-title {
             margin-bottom: 1.5rem;
             font-size: 3.5rem;
+            padding-bottom: 0.1em; /* Added padding to prevent text clipping */
         }
 
         .hero-subtitle {
             font-size: 1.25rem;
             color: var(--text-light);
             margin-bottom: 2.5rem;
+            line-height: 1.8; /* Increased line height to prevent text clipping */
         }
 
         .hero-cta {
@@ -350,6 +356,7 @@
             display: flex;
             align-items: center;
             gap: 0.375rem;
+            line-height: 1.5; /* Ensure consistent line height for tags */
         }
 
         .tag i {
@@ -405,6 +412,7 @@
             border-radius: 20px;
             font-weight: 500;
             font-size: 0.875rem;
+            line-height: 1.5; /* Added consistent line height */
         }
 
         /* Projects Section */
@@ -462,6 +470,7 @@
             font-weight: 600;
             border-radius: 20px;
             z-index: 1;
+            line-height: 1.4; /* Added consistent line height */
         }
 
         .project-content {
@@ -471,12 +480,14 @@
         .project-title {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            line-height: 1.4; /* Ensure consistent line height */
         }
 
         .project-description {
             color: var(--text-light);
             font-size: 0.875rem;
             margin-bottom: 1rem;
+            line-height: 1.6; /* Added improved line height for descriptions */
         }
 
         .project-techs {
@@ -493,6 +504,7 @@
             border-radius: 5px;
             font-size: 0.75rem;
             font-weight: 500;
+            line-height: 1.4; /* Added consistent line height */
         }
 
         .project-links {
@@ -566,6 +578,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--footer-text);
             font-size: 0.875rem;
+            line-height: 1.6; /* Ensure consistent line height */
         }
 
         /* Responsive Design */
@@ -687,6 +700,7 @@
             font-weight: 500;
             cursor: none;
             transition: var(--transition);
+            line-height: 1.4; /* Added consistent line height */
         }
 
         .filter-btn:hover,
@@ -781,9 +795,9 @@
             <div class="about-content">
                 <h3>Morgan Bennett | mars_phobos</h3>
                 <p>Hi there! I'm Morgan :). I am a cybersecurity and networks student, and I am also a full stack web developer, whilst
-                also being proficient in several languages, such as Python, Lua, HTML, CSS, JS, TS and SQL. I occasionally make small projects to learn new things, hone my current skills and provide
-                solutions to problems that people propose to me! I was born and raised in the UK, specifically West Yorkshire, England.
-                I am a gamer, a drummer, and I love music, particular emo and metal genres..</p>
+                    also being proficient in several languages, such as Python, Lua, HTML, CSS, JS, TS and SQL. I occasionally make small projects to learn new things, hone my current skills and provide
+                    solutions to problems that people propose to me! I was born and raised in the UK, specifically West Yorkshire, England.
+                    I am a gamer, a drummer, and I love music, particular emo and metal genres..</p>
                 <div class="skills">
                     <div class="skill-pill">Python</div>
                     <div class="skill-pill">JavaScript</div>
@@ -856,7 +870,6 @@
         </div>
     </div>
 </footer>
-
 <!-- JavaScript -->
 <script>
     // Header scroll effect

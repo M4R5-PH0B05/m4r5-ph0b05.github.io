@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morgan Bennett | Full Stack Developer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
+    <style> 
         :root {
             --bg: #f3f1ee;
             --ink: #101314;
@@ -470,6 +472,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .hero-copy {
+                order: 2;
+            }
+
+            .hero-art {
+                order: 1;
+            }
+
             .hero-art {
                 justify-items: center;
             }
@@ -480,6 +490,19 @@
 
             .info-card {
                 justify-self: center;
+            }
+
+            .about-copy p + p {
+                margin-top: 1rem;
+            }
+
+            .contact-grid {
+                justify-items: center;
+            }
+
+            .contact-card {
+                width: 100%;
+                max-width: 420px;
             }
         }
 

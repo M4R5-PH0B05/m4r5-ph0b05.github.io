@@ -748,7 +748,7 @@
         menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 
-    document.query1ectorAll('a[href^="#"]').forEach(link => {
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener("click", event => {
             const targetId = link.getAttribute("href");
             const target = document.querySelector(targetId);

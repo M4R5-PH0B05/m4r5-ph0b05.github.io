@@ -257,6 +257,8 @@
             aspect-ratio: 4 / 5;
             object-fit: cover;
             object-position: center 20%;
+
+
         }
 
         .portrait-caption {
@@ -349,8 +351,35 @@
 
         .project-cover img {
             border-radius: 14px;
-            aspect-ratio: 4 / 3;
+            width: 100%;
+            aspect-ratio: 3 / 1;       /* consistent wide banner shape */
             object-fit: cover;
+            object-position: center;   /* ensures focal point is centred */
+            display: block;
+        }
+
+        .project-cover img[alt="Resleeve preview"] {
+            object-fit: contain;
+            background-color: #EAE0D5; /* match the logo's background colour */
+            padding: 5px;             /* optional: add breathing room around the logo */
+        }
+
+        .project-cover img[alt="BWS preview"] {
+            object-fit: contain;
+            background-color: #3C7DED; /* match the logo's background colour */
+            padding: 5px;             /* optional: add breathing room around the logo */
+        }
+
+        .project-cover img[alt="Resleeve preview"] {
+            object-fit: contain;
+            background-color: #EAE0D5; /* match the logo's background colour */
+            padding: 5px;             /* optional: add breathing room around the logo */
+        }
+
+        .project-cover img[alt="Lodestone preview"] {
+            object-fit: contain;
+            background-color: #FFFFFF; /* match the logo's background colour */
+            padding: 5px;             /* optional: add breathing room around the logo */
         }
 
         .project-action {
@@ -586,7 +615,7 @@
         </div>
         <div class="hero-art reveal">
             <div class="portrait-card">
-                <img src="IMG_7064.JPG" alt="Morgan Bennett portrait">
+                <img src="AMG-3351.jpg" alt="Morgan Bennett portrait">
                 <div class="portrait-caption"></div>
             </div>
         </div>
@@ -642,9 +671,29 @@
                 <h2>Finished Work</h2>
             </div>
             <div class="project-list">
+                <!-- BWS -->
                 <article class="project reveal">
                     <div class="project-cover">
-                        <img src="Resleeve.png" alt="Resleeve preview">
+                        <img src="img.png" alt="BWS preview">
+                        <div class="project-action">
+                            <a class="btn link" href="https://bespokewatersolutions.co.uk" target="_blank" rel="noreferrer">View</a>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-top">
+                            <h3>Bespoke Water Solutions</h3>
+                        </div>
+                        <p>A fully responsive business website designed and developed for a real UK client in the water pump industry. The site features a professional, conversion-focused layout with a strong hero section, a structured product catalogue spanning six categories, and an integrated contact form — all built with a clean, brand-consistent design. This project demonstrates my ability to deliver polished, client-ready websites that effectively communicate a business's services and drive user engagement.</p>
+                        <div class="project-tech">
+                            <span>JavaScript</span>
+                            <span>HTML/CSS</span>
+                        </div>
+                    </div>
+                </article>
+            <!-- RESLEVE -->
+                <article class="project reveal">
+                    <div class="project-cover">
+                        <img src="resleeve%20logo.png" alt="Resleeve preview">
                         <div class="project-action">
                             <a class="btn link" href="https://resleeve.marsphobos.com" target="_blank" rel="noreferrer">View</a>
                         </div>
@@ -662,30 +711,10 @@
                         </div>
                     </div>
                 </article>
+                <!-- Lodestone -->
                 <article class="project reveal">
                     <div class="project-cover">
-                        <img src="banner.jpg" alt="Minecraft preview">
-                        <div class="project-action">
-                            <a class="btn link" href="https://mc.marsphobos.com" target="_blank" rel="noreferrer">View</a>
-                        </div>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-top">
-                            <h3>Create: Perfect World SMP </h3>
-                        </div>
-                        <p>A lightweight, Create 6.0 focused modpack for Minecraft 1.21.1 put together by MrBeardstone , and is the official pack used in his Create: Perfect World - Post Production YouTube series. The pack is designed to create a Vanilla+ Minecraft experience, heavily focused around the Create mod and creating a fully immersive, active world. Also included are quality of life mods to improve inventory management, storage, villages, food and more, while maintaining a vanilla style of gameplay.</p>
-                        <div class="project-tech">
-                            <span>Minecraft</span>
-                            <span>Server</span>
-                            <span>Java</span>
-                            <span>Python</span>
-                            <span>API</span>
-                        </div>
-                    </div>
-                </article>
-                <article class="project reveal">
-                    <div class="project-cover">
-                        <img src="lodestone.png" alt="Music Ranker app preview">
+                        <img src="lodestone%20logo.png" alt="Lodestone preview">
                         <div class="project-action">
                             <a class="btn link" href="https://musicranker.duckdns.org" target="_blank" rel="noreferrer">View</a>
                         </div>
@@ -697,6 +726,32 @@
                         <p>Lodestone is a GUI-based application that helps identify and manage client-side and server-side Minecraft mods through community-driven classification modules. Whether you're a server administrator cleaning up a modpack or a player organizing your mod collection, Lodestone streamlines the process of categorizing and managing your mods.</p>
                         <div class="project-tech">
                             <span>Rust</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- MINECRAFT -->
+                <article class="project reveal">
+                    <div class="project-cover">
+                        <img src="banner.jpg" alt="Minecraft preview">
+                        <div class="project-action">
+                            <a class="btn link" href="https://mc.marsphobos.com" target="_blank" rel="noreferrer">View</a>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-top">
+                            <h3>Create: Perfect World SMP Site </h3>
+                        </div>
+                        <p>The official home of the Lightweight Create 6.0 Modpack, a modern and responsive site built for fans of MrBeardstone’s Create: Perfect World – Post Production YouTube series. This site offers everything you need to explore, download, and stay updated on the Vanilla+ experience built around Minecraft 1.21.1 and the Create mod.
+
+                            Designed as a central hub for players, the site highlights features of the pack, mod details, installation guides, and updates — all while reflecting the creativity and polish of the Minecraft world it supports.
+
+                        </p>
+                        <div class="project-tech">
+                            <span>Minecraft</span>
+                            <span>Server</span>
+                            <span>Java</span>
+                            <span>Python</span>
+                            <span>API</span>
                         </div>
                     </div>
                 </article>

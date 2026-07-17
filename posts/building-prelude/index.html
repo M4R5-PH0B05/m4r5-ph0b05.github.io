@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building Prelude - Morgan Bennett</title>
+<title>Building Prelude - Morgan Bennett</title>
     <meta name="description" content="How I pulled the music layer out of my apps into Prelude - a self-caching, rate-limited MusicBrainz gateway built on FastAPI, Postgres, Redis and Celery, shared across the whole stack.">
     <meta name="theme-color" content="#f0ebe8">
-    <link rel="canonical" href="https://www.marsphobos.com/posts/building-prelude.html">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="canonical" href="https://www.marsphobos.com/posts/building-prelude/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Building Prelude: a shared music catalogue for the whole stack">
     <meta property="og:description" content="A self-caching, rate-limited MusicBrainz gateway built on FastAPI, Postgres, Redis and Celery - the invisible service my other apps run on.">
-    <meta property="og:url" content="https://www.marsphobos.com/posts/building-prelude.html">
+    <meta property="og:url" content="https://www.marsphobos.com/posts/building-prelude/">
     <meta property="og:image" content="https://www.marsphobos.com/banner.jpg">
     <meta property="og:image:alt" content="Prelude - shared music catalogue service by Morgan Bennett">
     <meta property="article:published_time" content="2026-06-29T00:00:00+01:00">
@@ -32,8 +32,8 @@
       "image": "https://www.marsphobos.com/banner.jpg",
       "datePublished": "2026-06-29T00:00:00+01:00",
       "dateModified": "2026-06-29T00:00:00+01:00",
-      "url": "https://www.marsphobos.com/posts/building-prelude.html",
-      "mainEntityOfPage": "https://www.marsphobos.com/posts/building-prelude.html",
+      "url": "https://www.marsphobos.com/posts/building-prelude/",
+      "mainEntityOfPage": "https://www.marsphobos.com/posts/building-prelude/",
       "author": { "@type": "Person", "name": "Morgan Bennett", "url": "https://www.marsphobos.com/" },
       "publisher": { "@type": "Person", "name": "Morgan Bennett" },
       "keywords": "Python, FastAPI, Postgres, Redis, Celery, caching, rate limiting, microservice, build log"
@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body id="top">
 
@@ -69,7 +69,7 @@
                 <div class="meta"><time datetime="2026-06-29T00:00:00+01:00">29 Jun 2026</time><span class="tag">Project</span><span>7 min read</span></div>
                 <h1>Building Prelude: a shared music catalogue for the whole stack</h1>
                 <div class="article-body">
-                    <p>For most of this year I've been building two apps at once: <a href="building-resleeve.html">Resleeve</a>, which turns albums into wallpapers, and Score, a music-ranking app. Different products, but both need the same raw material - data about albums, artists and songs. Both were calling MusicBrainz directly, both were re-fetching the same records over and over, and both were quietly competing for the same rate limit.</p>
+                    <p>For most of this year I've been building two apps at once: <a href="/posts/building-resleeve/">Resleeve</a>, which turns albums into wallpapers, and Score, a music-ranking app. Different products, but both need the same raw material - data about albums, artists and songs. Both were calling MusicBrainz directly, both were re-fetching the same records over and over, and both were quietly competing for the same rate limit.</p>
 
                     <p>MusicBrainz allows one request per second, per IP address - and my whole stack sits behind a single IP. Two apps hammering it independently is a good way to get throttled by your own software. So I stopped duplicating the music layer and pulled it out into a service of its own: Prelude. One catalogue that every app talks to instead of MusicBrainz - it caches everything it fetches, and it's the only thing in my stack allowed to talk to the outside world.</p>
 
@@ -122,6 +122,6 @@
     </div>
 </footer>
 
-<script src="../main.js"></script>
+<script src="/main.js"></script>
 </body>
 </html>

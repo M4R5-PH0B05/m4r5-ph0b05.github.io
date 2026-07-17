@@ -1,5 +1,6 @@
 .DS_Store
 .claude/
+.idea/
 index.old.html
 *.stale
 err1

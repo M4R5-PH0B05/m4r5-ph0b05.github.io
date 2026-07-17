@@ -8,9 +8,9 @@ Run:
 Then open http://localhost:5000 in your browser.
 
 What it does on "Save post":
-  1. Creates  posts/<slug>.html   (full article page, matching the site template)
-  2. Adds a row to the top of the list in  blog.html
-  3. Adds a matching entry to blog.html's JSON-LD  blogPost  array
+  1. Creates  posts/<slug>/index.html   (full article page, matching the site template)
+  2. Adds a row to the top of the list in  blog/index.html
+  3. Adds a matching entry to blog/index.html's JSON-LD  blogPost  array
   4. Adds a <url> entry to  sitemap.xml
 
 "Publish" then runs: git add -A && git commit && git push  (current branch).
@@ -27,7 +27,7 @@ from pathlib import Path
 try:
     import markdown as md_lib
 except ImportError:
-    md_lib = None
+    raise SystemExit("Markdown is not installed. Run:  pip install flask markdown")
 
 try:
     from flask import Flask, request, jsonify
@@ -36,10 +36,10 @@ except ImportError:
 
 # ---------------------------------------------------------------- config
 def _find_site_root(start):
-    """Walk up from the script until we find the repo root (where blog.html lives)."""
+    """Walk up from the script until we find the repo root (where blog/index.html lives)."""
     p = start
     for _ in range(6):
-        if (p / "blog.html").exists():
+        if (p / "blog" / "index.html").exists():
             return p
         if p.parent == p:
             break
@@ -48,7 +48,7 @@ def _find_site_root(start):
 
 SITE_ROOT = _find_site_root(Path(__file__).resolve().parent)
 POSTS_DIR = SITE_ROOT / "posts"
-BLOG_FILE = SITE_ROOT / "blog.html"
+BLOG_FILE = SITE_ROOT / "blog" / "index.html"
 SITEMAP   = SITE_ROOT / "sitemap.xml"
 SITE_URL  = "https://www.marsphobos.com"
 AUTHOR    = "Morgan Bennett"
@@ -83,10 +83,6 @@ def read_time(body_md):
     return f"{max(1, round(words / 200))} min read"
 
 def md_to_html(text):
-    if md_lib is None:
-        # minimal fallback: blank-line paragraphs only
-        paras = [p.strip() for p in (text or "").split("\n\n") if p.strip()]
-        return "\n".join(f"<p>{esc(p)}</p>" for p in paras)
     out = md_lib.markdown(text or "", extensions=["extra", "sane_lists"])
     # the page <h1> is the post title, so demote any body h1 to h2
     out = re.sub(r"<(/?)h1>", r"<\1h2>", out)
@@ -110,7 +106,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
     <meta name="description" content="@@DESC@@">
     <meta name="theme-color" content="#f0ebe8">
     <link rel="canonical" href="@@URL@@">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="@@TITLE@@">
@@ -133,7 +129,7 @@ POST_TEMPLATE = """<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body id="top">
 
@@ -173,13 +169,13 @@ POST_TEMPLATE = """<!DOCTYPE html>
     </div>
 </footer>
 
-<script src="../main.js"></script>
+<script src="/main.js"></script>
 </body>
 </html>
 """
 
 def build_post_html(title, desc, slug, date_iso, tag, read, body_html):
-    url = f"{SITE_URL}/posts/{slug}"
+    url = f"{SITE_URL}/posts/{slug}/"
     date_time = structured_datetime(date_iso)
     jsonld = json.dumps({
         "@context": "https://schema.org",
@@ -209,7 +205,7 @@ def build_post_html(title, desc, slug, date_iso, tag, read, body_html):
 def insert_blog_row(title, desc, slug, date_iso, date_disp, tag):
     date_time = structured_datetime(date_iso)
     row = (
-        '\n                <a class="post-row reveal" href="/posts/' + slug + '">\n'
+        '\n                <a class="post-row reveal" href="/posts/' + slug + '/">\n'
         '                    <time class="post-date" datetime="' + date_time + '">' + esc(date_disp) + '</time>\n'
         '                    <div class="post-main">\n'
         '                        <span class="post-tag">' + esc(tag) + '</span>\n'
@@ -222,7 +218,7 @@ def insert_blog_row(title, desc, slug, date_iso, date_disp, tag):
     anchor = "<!-- POST: duplicate this block + the matching post page for each new entry -->"
     content = BLOG_FILE.read_text(encoding="utf-8")
     if anchor not in content:
-        raise RuntimeError("Could not find the post-list anchor comment in blog.html")
+        raise RuntimeError("Could not find the post-list anchor comment in blog/index.html")
     BLOG_FILE.write_text(content.replace(anchor, anchor + row, 1), encoding="utf-8")
 
 def insert_jsonld(title, slug, date_iso):
@@ -231,7 +227,7 @@ def insert_jsonld(title, slug, date_iso):
         '        {\n'
         '          "@type": "BlogPosting",\n'
         '          "headline": ' + json.dumps(title) + ',\n'
-        '          "url": "' + SITE_URL + '/posts/' + slug + '",\n'
+        '          "url": "' + SITE_URL + '/posts/' + slug + '/",\n'
         '          "datePublished": "' + date_time + '",\n'
         '          "dateModified": "' + date_time + '",\n'
         '          "author": { "@type": "Person", "name": "' + AUTHOR + '" }\n'
@@ -244,7 +240,7 @@ def insert_jsonld(title, slug, date_iso):
     BLOG_FILE.write_text(content.replace(needle, needle + entry, 1), encoding="utf-8")
 
 def insert_sitemap(slug, date_iso):
-    entry = ('  <url><loc>' + SITE_URL + '/posts/' + slug + '</loc>'
+    entry = ('  <url><loc>' + SITE_URL + '/posts/' + slug + '/</loc>'
              '<lastmod>' + date_iso + '</lastmod>'
              '<changefreq>monthly</changefreq><priority>0.6</priority></url>\n')
     content = SITEMAP.read_text(encoding="utf-8")
@@ -272,12 +268,13 @@ def save():
     except ValueError:
         return jsonify(ok=False, error="Date must be YYYY-MM-DD.")
 
-    post_path = POSTS_DIR / f"{slug}.html"
-    if post_path.exists() or f'/posts/{slug}"' in BLOG_FILE.read_text(encoding="utf-8"):
+    post_dir = POSTS_DIR / slug
+    post_path = post_dir / "index.html"
+    if post_path.exists() or f'/posts/{slug}/"' in BLOG_FILE.read_text(encoding="utf-8"):
         return jsonify(ok=False, error=f"A post with slug '{slug}' already exists. Pick a different title/slug.")
 
     try:
-        POSTS_DIR.mkdir(exist_ok=True)
+        post_dir.mkdir(parents=True, exist_ok=True)
         body_html = md_to_html(body)
         post_path.write_text(build_post_html(title, desc, slug, date_iso, tag, read, body_html), encoding="utf-8")
         insert_blog_row(title, desc, slug, date_iso, display_date(date_iso), tag)
@@ -287,7 +284,7 @@ def save():
         return jsonify(ok=False, error=f"{type(e).__name__}: {e}")
 
     return jsonify(ok=True, slug=slug,
-                   message=f"Saved posts/{slug}.html and updated blog.html + sitemap.xml.")
+                   message=f"Saved posts/{slug}/index.html and updated blog/index.html + sitemap.xml.")
 
 @app.route("/publish", methods=["POST"])
 def publish():
@@ -308,8 +305,7 @@ def publish():
 def index():
     return PAGE.replace("@@BRANCH@@", esc(get_branch())) \
                .replace("@@TODAY@@", datetime.date.today().isoformat()) \
-               .replace("@@MDWARN@@", "" if md_lib else
-                        "Markdown library not found ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â run  pip install markdown  for proper formatting.")
+               .replace("@@MDWARN@@", "")
 
 # ---------------------------------------------------------------- UI page
 PAGE = """<!DOCTYPE html>
